@@ -79,8 +79,8 @@ export class EmailService {
 
 
   generateResetUrl(token: string): string {
-    // Replace 'https://synergy.dgnxt.in' with your actual application's base URL
-    const baseUrl = 'https://synergy.dgnxt.in';
+    // Replace '' with your actual application's base URL
+    const baseUrl = '';
     const resetPath = '/reset-password/' + token;
   
     return baseUrl + resetPath;
@@ -88,7 +88,7 @@ export class EmailService {
   
 //   generateResetUrl(token: string): string {
 //     // Replace 'http://your-app-base-url' with your actual application's base URL
-//     const baseUrl = 'https://synergy.dgnxt.in';
+//     const baseUrl = 'http://your-app-base-url';
 //     const resetPath = `/reset-password/${token}`;
 
 //     // Use the 'url.resolve' method to construct the URL
