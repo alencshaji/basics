@@ -23,7 +23,7 @@ export class EmailService {
 
   async send(subject: string, to: string, html: string, text: string) {
     const mailOptions = {
-      from: `Nilgiri Medical Centre Support <${process.env.SENDER_EMAIL}>`,
+      from: `For Support <${process.env.SENDER_EMAIL}>`,
       to,
       subject,
       html,
@@ -33,7 +33,7 @@ export class EmailService {
     await this.transporter.sendMail(mailOptions);
   }
 
-  async sendWelcome(user, randomPassword) {
+  async sendWelcome(user, randomPassword,companyName) {
     const message = `Hi ${user.name},
       
       Please refer to the login credentials
@@ -47,7 +47,7 @@ export class EmailService {
 
       Thanks!`;
 
-    await this.send('Welcome to Nilgiri Medical Centre', user.email, null, message);
+    await this.send(`Welcome to ${companyName}`, user.email, null, message);
   }
 
   async sendPasswordReset(user, otp, resetUrl) {

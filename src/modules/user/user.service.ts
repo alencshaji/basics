@@ -13,11 +13,12 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { WithRoles } from '../auth/decorator/role.decorator';
 import { EmailService } from '../common/services/email.service';
 import { searchDto } from '../search-dto/user-search.dto';
+import { Company } from 'src/schemas/company.schema';
 @Injectable()
 export class UserService {
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
-
+    @InjectModel(Company.name) private companyModel: Model<Company>,
 
     private readonly emailService: EmailService,
   ) { }
@@ -43,10 +44,12 @@ export class UserService {
 
   async create(
     createUserDto: CreateUserDto,
+    companyId:any
   ): Promise<User> {
     try{
       const existingUser = await this.userModel.findOne({
         email: createUserDto.email,
+        companyId:new Types.ObjectId(companyId)
       });
       if (existingUser) {
         throw new BadRequestException('Email is duplicate');
@@ -63,7 +66,8 @@ export class UserService {
         ...createUserDto,
         password: hashedPassword,
       });
-      await this.emailService.sendWelcome(newUser, password);
+      const company = await this.companyModel.findById(newUser.companyId)
+      await this.emailService.sendWelcome(newUser, password,company.name);
   
       const createdNewUser = await newUser.save();
   

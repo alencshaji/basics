@@ -66,7 +66,8 @@ export class AuthService {
       const tokens = await this.getTokens(
         user._id,
         user.name,
-        user.role
+        user.role,
+        user.companyId
       );
       await this.updateRefreshToken(user._id, tokens.refreshToken);
 
@@ -126,13 +127,14 @@ export class AuthService {
     return argon2.hash(data);
   }
 
-  async getTokens(userId: string, name: string,role: string) {
+  async getTokens(userId: string, name: string,role: string,companyId:any) {
     const [accessToken, refreshToken] = await Promise.all([
       this.jwtService.signAsync(
         {
           sub: userId,
           name,
           role,
+          companyId:companyId
         },
         {
           secret: this.configService.get<string>('JWT_ACCESS_SECRET'),
@@ -143,7 +145,8 @@ export class AuthService {
         {
           sub: userId,
           name,
-          role
+          role,
+          companyId:companyId
         },
         {
           secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
@@ -288,7 +291,7 @@ export class AuthService {
       );
 
       if (!refreshTokenMatches) throw new ForbiddenException('Access Denied');
-      const tokens = await this.getTokens(user._id, user.name, user.role);
+      const tokens = await this.getTokens(user._id, user.name, user.role,user.companyId);
       // await this.updateRefreshToken(user._id, tokens.refreshToken);
       delete tokens.refreshToken
       return tokens;

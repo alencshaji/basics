@@ -7,10 +7,14 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { EmailService } from '../common/services/email.service';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import { Company, companySchema } from 'src/schemas/company.schema';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    MongooseModule.forFeature([
+      { name: User.name, schema: UserSchema },
+      {name:Company.name,schema:companySchema}
+    ]),
   ],
   controllers: [UserController],
   providers: [UserService, EmailService, JwtService, ConfigService],

@@ -38,10 +38,11 @@ export class UserController {
   // @WithRoles(Roles.ADMIN)
   @Post()
   async create(
+    @Req() req:any,
     @Body()
     createUserDto: CreateUserDto,
   ) {
-    const newUser = await this.userService.create(createUserDto);
+    const newUser = await this.userService.create(createUserDto,req.user['companyId']);
     return {
       status: 'success',
       message: 'User Created',

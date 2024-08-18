@@ -34,6 +34,9 @@ export class User {
   @Prop({type:Types.ObjectId,ref:'Department',required:false})
   department: Types.ObjectId;
 
+  @Prop({type:Types.ObjectId,ref:'Company',required:false})
+  companyId: Types.ObjectId;
+
   // @Prop({ required: true })
   // designation: string;
 
