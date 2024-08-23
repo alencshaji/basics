@@ -31,10 +31,10 @@ async function bootstrap() {
   app.enableCors();
 
   // Use randomBytes correctly
-  const randomUUIDkey = randomBytes(32).toString('hex'); // Specify 'hex' encoding
-  console.log(randomUUIDkey);
-
-  await app.listen(3024);
+  // const randomUUIDkey = randomBytes(32).toString('hex'); // Specify 'hex' encoding
+  // console.log(randomUUIDkey);
+  const port = process.env.PORT || 4000;
+  await app.listen(port);
 }
 
 bootstrap();
