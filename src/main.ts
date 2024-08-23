@@ -35,6 +35,7 @@ async function bootstrap() {
   // console.log(randomUUIDkey);
   const port = process.env.PORT || 4000;
   await app.listen(port);
+  console.log(`<<< --Application is running on: Port:${port} - >>>`);
 }
 
 bootstrap();
