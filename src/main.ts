@@ -33,7 +33,7 @@ async function bootstrap() {
   // Use randomBytes correctly
   // const randomUUIDkey = randomBytes(32).toString('hex'); // Specify 'hex' encoding
   // console.log(randomUUIDkey);
-  const port = process.env.PORT || 3038;
+  const port = 3038 || process.env.PORT ;
   await app.listen(port);
   console.log(`<<< --Application is running on: Port:${port} - >>>`);
 }

@@ -6,10 +6,11 @@ import {
     OnApplicationBootstrap,
 } from '@nestjs/common';
 import { InjectModel, MongooseModule } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import * as argon2 from 'argon2';
 import { User, UserSchema } from 'src/schemas/user.schema';
 import { Roles } from 'src/modules/user/dto/create-user.dto';
+import { Company, companySchema } from 'src/schemas/company.schema';
 
 
 @Injectable()
@@ -17,15 +18,20 @@ export class ConfigurationService implements OnApplicationBootstrap {
     private logger = new Logger(ConfigurationService.name);
     constructor(
         @InjectModel(User.name) private userModel: Model<User>,
+        @InjectModel(Company.name) private companyModel:Model<Company>
     ) { }
 
     async onApplicationBootstrap() {
-        this.createDefaultAdmin()
+       const company = await this.createDefaultCompany()
+        await this.createDefaultAdmin()
     }
 
 
     async createDefaultAdmin() {
         try {
+            let company = await this.companyModel.findOne({
+                email: process.env.ADMIN_EMAIL,
+            })
             let user = await this.userModel.findOne({
                 email: process.env.ADMIN_EMAIL,
             });
@@ -34,12 +40,13 @@ export class ConfigurationService implements OnApplicationBootstrap {
                     timeCost: 12,
                 });
                 user = await this.userModel.create({
-                    name: 'Admin',
+                    name: 'Super Admin',
                     email: process.env.ADMIN_EMAIL,
                     phoneNumber: '0000000000',
                     password: hashedPassword,
-                    uniqueCode: 'ADMIN',
-                    role: Roles.ADMIN
+                    uniqueCode: 'SUPERADMIN',
+                    role:null,
+                    companyId:company._id
                 });
     
                 this.logger.debug('Default admin user created');
@@ -50,7 +57,32 @@ export class ConfigurationService implements OnApplicationBootstrap {
             throw error;
         }
     }
+
+    async createDefaultCompany() {
+        try {
+            let company = await this.companyModel.findOne({
+                email: process.env.ADMIN_EMAIL,
+            });
+            if (!company) {
+                company = await this.companyModel.create({
+                    name: 'COMPANY',
+                    email: process.env.ADMIN_EMAIL,
+                    address: 'Company ',
+                    phone: '8086984151',
+                    location: 'TDPA'
+                });
     
+                this.logger.debug('Default company user created');
+                return company
+            }
+        }
+        catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
+    
+
 
 }
 
@@ -60,7 +92,8 @@ export class ConfigurationService implements OnApplicationBootstrap {
     exports: [ConfigurationService],
     imports: [
         MongooseModule.forFeature([
-            { name: User.name, schema: UserSchema }
+            { name: User.name, schema: UserSchema },
+            {name:Company.name,schema:companySchema}
         ]),
     ],
 })

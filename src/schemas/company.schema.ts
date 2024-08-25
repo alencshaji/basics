@@ -23,13 +23,13 @@ export class Company {
     @Prop({ type: String, required: false })
     location: string;
 
-    @Prop({ type: Types.ObjectId, ref: 'User' })
+    @Prop({ type: Types.ObjectId, ref: 'User' ,required:false})
     createdBy: Types.ObjectId;
     
-    @Prop({ type: Types.ObjectId, ref: 'User' })
+    @Prop({ type: Types.ObjectId, ref: 'User',required:false })
     updatedBy: Types.ObjectId;
 
-    @Prop({ type: Types.ObjectId, ref: 'User' })
+    @Prop({ type: Types.ObjectId, ref: 'User',required:false })
     ownedBy: Types.ObjectId;
 
 }
