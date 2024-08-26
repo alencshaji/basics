@@ -41,9 +41,10 @@ export class IdService {
         prefix = 'V-';
         countField = 'serviceCount';
         defaultValue = 100;
-
+        break;
       default:
         throw new Error('Invalid data type');
+
     }
     const update = {
       $inc: { [countField]: 1 }
