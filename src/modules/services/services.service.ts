@@ -41,7 +41,7 @@ export class ServicesService {
   async findAll(query?: ServiceSearchDto,companyId?:string) {
     const page = Number(query.page) || 1;
     const limit = Number(query.limit) || 0;
-    let filter: any = {companyId:new Types.ObjectId(companyId)};
+    const filter: any = {companyId:new Types.ObjectId(companyId)};
     let isActive;
     if (query?.isActive === 'true') {
       isActive = true;
@@ -49,13 +49,11 @@ export class ServicesService {
       isActive = false;
     }
     if (query.search) {
-      filter = {
-        $or: [
+      filter.$or = [
           { name: { $regex: query.search, $options: 'i' } },
           { area: { $regex: query.search, $options: 'i' } }
         ]
-      };
-    }
+      }
     if (isActive !== undefined) {
       filter.isActive = isActive;
     }

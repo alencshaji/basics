@@ -323,16 +323,15 @@ export class SaleService {
     const search = query?.search
     const page = query?.page || 1;
     const limit = query?.limit || 10;
-    let filter: any = { companyId: new Types.ObjectId(companyId) }
+    const filter: any = { companyId: new Types.ObjectId(companyId) }
 
     if (search) {
-      filter = {
-        $or: [
+      filter.$or=[
           { 'patientCode': { $regex: search, $options: 'i' } },
           { 'patientName': { $regex: search, $options: 'i' } },
           { 'uniqueCode': { $regex: search, $options: 'i' } }
         ]
-      }
+      
     } else if (query.date) {
       const startDate = new Date(query.date);
       startDate.setUTCHours(0, 0, 0, 0);

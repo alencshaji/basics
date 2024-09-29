@@ -37,7 +37,7 @@ export class StockItemsService {
     const page = Number(query?.page) || 1;
     const limit = Number(query?.limit) || 0;
 
-    let filter: any = { companyId: new Types.ObjectId(companyId) };
+    const filter: any = { companyId: new Types.ObjectId(companyId) };
 
     if (search) {
       const regexSearch = { $regex: new RegExp(search, 'i') };
@@ -176,7 +176,7 @@ export class StockItemsService {
     const page = Number(query?.page) || 1;
     const limit = Number(query?.limit) || 10;
 
-    let filter: any = { companyId: new Types.ObjectId(companyId) };
+    const filter: any = { companyId: new Types.ObjectId(companyId) };
 
     if (query?.date === 'expired') {
       filter.status = StockStatus.Expired;
@@ -291,7 +291,7 @@ export class StockItemsService {
     const page = Number(query?.page) || 1;
     const limit = Number(query?.limit) || 10;
 
-    let filter: any = { itemMasterId: new Types.ObjectId(id) };
+    const filter: any = { itemMasterId: new Types.ObjectId(id) };
 
     if (search) {
       const regexSearch = { $regex: new RegExp(search, 'i') };
@@ -905,7 +905,7 @@ export class StockItemsService {
     const page = Number(query?.page) || 1;
     const limit = Number(query?.limit) || 10;
 
-    let filter: any = { companyId: new Types.ObjectId(companyId) };
+    const filter: any = { companyId: new Types.ObjectId(companyId) };
 
     if (search) {
       const regexSearch = { $regex: new RegExp(search, 'i') };
@@ -999,7 +999,7 @@ export class StockItemsService {
     const page = Number(query?.page) || 1;
     const limit = Number(query?.limit) || 10;
 
-    let filter: any = { itemMasterId: new Types.ObjectId(id) };
+    const filter: any = { itemMasterId: new Types.ObjectId(id) };
     if (search) {
       const regexSearch = { $regex: new RegExp(search, 'i') };
       filter.$or = [

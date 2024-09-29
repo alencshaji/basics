@@ -36,14 +36,12 @@ export class VendorService {
   }
 
   async findAll(query?: VendorSearchDto, companyId?: string) {
-    let filter: any = { companyId: new Types.ObjectId(companyId) };
+    const filter: any = { companyId: new Types.ObjectId(companyId) };
     if (query.search) {
-      filter = {
-        $or: [
+      filter.$or =  [
           { name: { $regex: query.search, $options: 'i' } },
           { location: { $regex: query.search, $options: 'i' } }
         ]
-      };
     }
 
     const page = +query.page || 1;

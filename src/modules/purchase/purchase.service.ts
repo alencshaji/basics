@@ -105,23 +105,19 @@ export class PurchaseService {
       if (existingItemMaster) {
         throw new BadRequestException('ItemMaster already exists');
       }
-      const pack = await this.packModel.findById(createItemMasterDto.packId);
+      const pack = await this.packModel.findOne({packId:new Types.ObjectId(createItemMasterDto.packId),companyId:new Types.ObjectId(companyId)});
       if (!pack) {
         throw new BadRequestException('Pack not found');
       }
-      const manufacture = await this.manufacturerModel.findById(createItemMasterDto.manufacturerId);
+      const manufacture = await this.manufacturerModel.findOne({manufacturerId:createItemMasterDto.manufacturerId,companyId:new Types.ObjectId(companyId)});
       if (!manufacture) {
         throw new BadRequestException('Manufacture not found');
       }
 
-      const vendor = await this.vendorModel.findById(createItemMasterDto.vendorId);
+      const vendor = await this.vendorModel.findOne({vendorId:createItemMasterDto.vendorId,companyId:new Types.ObjectId(companyId)});
       if (!vendor) {
         throw new BadRequestException('Vendor not found');
       }
-      console.log(vendor._id);
-
-
-
 
       itemMaster = await this.itemMasterModel.create({
         ...createItemMasterDto,
@@ -426,15 +422,14 @@ export class PurchaseService {
     const page = Number(query.page) || 1;
     const limit = Number(query.limit) || 10;
 
-    let filter: any = {companyId: new Types.ObjectId(companyId)};
+    const filter: any = {companyId: new Types.ObjectId(companyId)};
     if (search) {
-      filter = {
-        $or: [
+      filter.$or = 
+         [
           { uniqueCode: { $regex: search, $options: 'i' } },
           { invoiceNumber: { $regex: search, $options: 'i' } },
           { 'vendorDetails.vendorName': { $regex: search, $options: 'i' } },
         ]
-      }
     } else if (query.date) {
       const startDate = new Date(query.date);
       startDate.setUTCHours(0, 0, 0, 0);
@@ -603,14 +598,13 @@ export class PurchaseService {
     const search = query?.search;
     const page = Number(query?.page) || 1;
     const limit = Number(query?.limit) || 10;
-    let filter: any = {companyId: new Types.ObjectId(companyId)};
+    const filter: any = {companyId: new Types.ObjectId(companyId)};
     if (search) {
-      filter = {
-        $or: [
+      filter.$or =[
           { name: { $regex: search, $options: 'i' } },
           { batchCount: { $regex: search, $options: 'i' } },
         ]
-      }
+      
     }
     const itemMasters = await this.itemMasterModel.aggregate([
       {
@@ -896,7 +890,7 @@ export class PurchaseService {
     const date = query?.date;
     const limit = query?.limit || 10;
 
-    let filter: any = {companyId: new Types.ObjectId(companyId)}
+    const filter: any = {companyId: new Types.ObjectId(companyId)}
     if (search) {
       filter.$or = [
         { uniqueCode: { $regex: search, $options: 'i' } },

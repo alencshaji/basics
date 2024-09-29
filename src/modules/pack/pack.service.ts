@@ -32,7 +32,7 @@ export class PackService {
   async findAll(search?: string, page?: number, limit?: number,companyId?:string) {
     page = Number(page) || 1;
     limit = Number(limit) || 0;
-    let filter: any = {companyId:new Types.ObjectId(companyId)};
+    const filter: any = {companyId:new Types.ObjectId(companyId)};
     
     if (search) {
       filter.name = { $regex: search, $options: 'i' };
