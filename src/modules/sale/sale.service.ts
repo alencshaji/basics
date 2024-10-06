@@ -162,7 +162,6 @@ export class SaleService {
       const sgstValue = sgst * grossTotal;
       const total = grossTotal + igstValue + cgstValue + sgstValue;
       const threeMonthsFromNow = new Date();
-      // threeMonthsFromNow.setMonth(threeMonthsFromNow.getMonth() + 3);
 
       const stockItem = await this.stockItemModel.findById(createSaleItemDto.stockId);
       if (!stockItem) throw new BadRequestException('Stock not found');

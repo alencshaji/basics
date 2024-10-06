@@ -9,19 +9,15 @@ export class CreateSaleDto {
 
     @IsString()
     @IsOptional()
-    patientCode: string;
+    customerPhone: string;
 
     @IsString()
     @IsOptional()
-    patientState: string;
+    customerState: string;
 
     @IsString()
     @IsOptional()
-    patientName: string;
-
-    @IsString()
-    @IsOptional()
-    doctorName: string;
+    customerName: string;
 
     @IsString()
     billDate: Date;

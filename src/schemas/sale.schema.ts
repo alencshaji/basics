@@ -10,7 +10,7 @@ export type SaleDocument = HydratedDocument<Sale>;
 export class Sale {
 
     @Prop({ type: String, required: false })
-   customerName: string;
+    customerName: string;
 
     @Prop({ type: String, required: false })
     customerPhone: string;
@@ -90,10 +90,10 @@ export class Sale {
     @Prop({ required: false, enum: PaymentStatus })
     paymentStatus: PaymentStatus;
 
-    @Prop({ required: false, enum: PaymentMode})
+    @Prop({ required: false, enum: PaymentMode })
     paymentMode: PaymentMode;
 
-    @Prop({ required: true, type: Boolean,default: true })
+    @Prop({ required: true, type: Boolean, default: true })
     isDraft: boolean;
 
     @Prop({ type: Types.ObjectId, ref: 'User' })
@@ -105,9 +105,9 @@ export class Sale {
     @Prop({ type: Types.ObjectId, ref: 'User' })
     ownedBy: Types.ObjectId;
 
-    
-    @Prop({type:Types.ObjectId,ref:'Company',required:true})
-    companyId:Types.ObjectId;
+
+    @Prop({ type: Types.ObjectId, ref: 'Company', required: true })
+    companyId: Types.ObjectId;
 
 }
 
