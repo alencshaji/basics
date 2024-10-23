@@ -105,16 +105,16 @@ export class PurchaseService {
       if (existingItemMaster) {
         throw new BadRequestException('ItemMaster already exists');
       }
-      const pack = await this.packModel.findOne({packId:new Types.ObjectId(createItemMasterDto.packId),companyId:new Types.ObjectId(companyId)});
+      const pack = await this.packModel.findOne({_id:new Types.ObjectId(createItemMasterDto.packId),companyId:new Types.ObjectId(companyId)});
       if (!pack) {
         throw new BadRequestException('Pack not found');
       }
-      const manufacture = await this.manufacturerModel.findOne({manufacturerId:createItemMasterDto.manufacturerId,companyId:new Types.ObjectId(companyId)});
+      const manufacture = await this.manufacturerModel.findOne({_id:createItemMasterDto.manufacturerId,companyId:new Types.ObjectId(companyId)});
       if (!manufacture) {
         throw new BadRequestException('Manufacture not found');
       }
 
-      const vendor = await this.vendorModel.findOne({vendorId:createItemMasterDto.vendorId,companyId:new Types.ObjectId(companyId)});
+      const vendor = await this.vendorModel.findOne({_id:createItemMasterDto.vendorId,companyId:new Types.ObjectId(companyId)});
       if (!vendor) {
         throw new BadRequestException('Vendor not found');
       }
