@@ -56,6 +56,8 @@ export class ItemMaster{
     @Prop({ type: Number, required: false })
     igst: number;
 
+    @Prop({type:Types.ObjectId,ref:'Company',required:true})
+    companyId:Types.ObjectId;
     
     @Prop({type:Number,required:false})
     totalQuantity: number;

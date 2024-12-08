@@ -34,8 +34,8 @@ export class User {
   @Prop({type:Types.ObjectId,ref:'Department',required:false})
   department: Types.ObjectId;
 
-  @Prop({type:Types.ObjectId,ref:'Company',required:false})
-  companyId: Types.ObjectId;
+  @Prop({type:Types.ObjectId,ref:'Company',required:true})
+  companyId:Types.ObjectId;
 
   // @Prop({ required: true })
   // designation: string;
@@ -52,8 +52,8 @@ export class User {
   @Prop({ default: true, select: false })
   isActive: boolean;
 
-  // @Prop()
-  // refreshToken: string;
+  @Prop()
+  refreshToken: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

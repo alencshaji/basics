@@ -19,8 +19,8 @@ export class StockLocation {
     ownedBy: Types.ObjectId;
 
 
-    @Prop({ type: Types.ObjectId, ref: 'companyId', required: true })
-    companyId: Types.ObjectId;
+    @Prop({type:Types.ObjectId,ref:'Company',required:true})
+    companyId:Types.ObjectId;
 }
 
 export const StockLocationSchema = SchemaFactory.createForClass(StockLocation);

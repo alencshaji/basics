@@ -76,7 +76,7 @@ export class SaleReturnItem{
     ownedBy: Types.ObjectId;
 
     
-    @Prop({type:Types.ObjectId,ref:'companyId',required:true})
+    @Prop({type:Types.ObjectId,ref:'Company',required:true})
     companyId:Types.ObjectId;
 }
 

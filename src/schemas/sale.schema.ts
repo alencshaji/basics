@@ -105,9 +105,8 @@ export class Sale {
     @Prop({ type: Types.ObjectId, ref: 'User' })
     ownedBy: Types.ObjectId;
 
-
-    @Prop({ type: Types.ObjectId, ref: 'Company', required: true })
-    companyId: Types.ObjectId;
+    @Prop({type:Types.ObjectId,ref:'Company',required:true})
+    companyId:Types.ObjectId;
 
 }
 

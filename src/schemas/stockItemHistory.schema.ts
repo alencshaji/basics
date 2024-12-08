@@ -82,7 +82,7 @@ export class StockItemHistory{
     stockCreatedAt: Date;
 
     
-    @Prop({type:Types.ObjectId,ref:'companyId',required:true})
+    @Prop({type:Types.ObjectId,ref:'Company',required:true})
     companyId:Types.ObjectId;
 
 }
